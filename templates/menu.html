@@ -1,0 +1,35 @@
+    <div class="menu" id="Menu">
+        <h1>Our<span>Menu</span></h1>
+
+        <div class="menu_box">
+            {% for recipe in recipes %}
+            <div class="menu_card">
+                <div class="menu_image">
+                    <img src={{recipe.image}}>
+                </div>
+
+                <div class="small_card">
+                    <i class="fa-solid fa-heart" id = "{{recipe.id}}"></i>
+                </div>
+
+                <div class="menu_info">
+                    <h2>{{recipe.title}}</h2>
+                    <div class="menu_icon" name="{{recipe.id}}">
+                        <i class="fa-solid fa-star"  rating = "1" name="{{recipe.id}}"></i>
+                        <i class="fa-solid fa-star"  rating = "2" name="{{recipe.id}}"></i>
+                        <i class="fa-solid fa-star"  rating = "3" name="{{recipe.id}}"></i>
+                        <i class="fa-solid fa-star"  rating = "4" name="{{recipe.id}}"></i>
+                        <i class="fa-solid fa-star"  rating = "5" name="{{recipe.id}}"></i>
+                    </div>
+                </div>
+                <div id="buttonholder">
+                <button class="menu_btn" name="{{recipe.id}}">View Recipe</button>
+                </div>
+                </div>
+            {% endfor %}
+
+
+
+        </div>
+
+    </div>

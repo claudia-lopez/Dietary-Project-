@@ -1,0 +1,114 @@
+*{
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    right: 0;
+    left: 0;
+    margin-bottom: 50px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+nav .logo img{
+    width: 100px;
+    cursor: pointer;
+    margin: 7px 0;
+}
+
+nav ul{
+    list-style: none;
+}
+
+nav ul li{
+    display: inline-block;
+    margin: 0 15px;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+    font-size: 17px;
+    transition: 0.1s;
+}
+
+nav ul li a::after{
+    content: '';
+    width: 0;
+    height: 2px;
+    background: #fac031;
+    display: block;
+    transition: 0.2s linear;
+}
+
+nav ul li a:hover::after{
+    width: 100%;
+}
+
+nav ul li a:hover{
+    color: #fac031;
+}
+
+nav .icon i{
+    font-size: 18px;
+    color: #000;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+nav .icon i:hover{
+    color: #fac031;
+}
+form {
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+input[type="email"],
+input[type="password"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border-radius: 15px;
+}
+
+button {
+  border-radius: 15px;
+  background: #fac031;
+  padding: 12px 25px;
+  height: 50px;
+  width: 200px;
+  border: none;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  color: #fff;
+}
+button i{
+  transition: 0.3s;
+}
+button:hover i {
+  transform: translateX(7px);
+}
+p {
+  text-align: center;
+}

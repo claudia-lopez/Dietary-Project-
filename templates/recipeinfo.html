@@ -1,0 +1,16 @@
+<div id = {{recipe.id}} class="recipeinfo">
+    <h1 class="recipeinfo">{{recipe.title}}</h1>
+    <img class="recipeinfo" src = {{recipe.image}}>
+    <p  class="recipeinfo" id="info">This recipe is:<b>{% for i in recipe.info %} {{i}} {% endfor %}</b></p>
+    <h3 class="recipeinfo" for="summary">Summary</h3>
+    <ul class="recipeinfo" id="summary">{{recipe.summary|safe}}</ul>
+    <h3 class="recipeinfo" for="ingredients">Ingredients</h3>
+    <ul class="recipeinfo" id="ingredients">
+    {% for i in recipe.ingredients %}
+        <li class="recipeinfo">{{ i }}</li>
+    {% endfor %}
+    </ul>
+    <h3 class="recipeinfo" for="instructions">Instructions</h3>
+    <ul class="recipeinfo" id="instructions">{{recipe.instructions|safe}}</ul>
+</div>
+

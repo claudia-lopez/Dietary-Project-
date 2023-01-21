@@ -1,0 +1,8 @@
+{% extends 'loginbase.html' %}
+{% set endpoint = '\"/signup\"' %}
+{% set button = 'Create new account ' %}
+{% set title = 'Signup' %}
+{% block passconf %}
+  <label for="passwordconf">Confirm Password:</label>
+  <input type="password" id="passwordconf" name="passwordconf"><br>
+{% endblock %}

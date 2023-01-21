@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Food Website</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <section id="Home">
+        <nav>
+            <div class="logo">
+                <img src="../static/image/logo.png">
+            </div>
+
+            <ul>
+                <li><a href="#Home">Home</a></li>
+                <li><a href="#About">About</a></li>
+                {% block navbar %}{% endblock %}
+            </ul>
+
+            <div class="icon" id="icon">
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+        </nav>
+
+        <div class="main">
+
+            <div class="men_text">
+                <h1>All Your<span>Favorite</span><br>Recipes</h1>
+            </div>
+
+            <div class="main_image">
+                <img src="../static/image/Food-Plate.png">
+            </div>
+
+        </div>
+
+        <p>
+            Intro
+        </p>
+        {% block main_btn %}
+        <div class="main_btn" name="signup">
+            <a href="/signup">Sign Up <i class="fa-solid fa-angle-right"></i></a>
+        </div>
+        <div class="main_btn" name="login">
+            <a href="/login">Log in <i class="fa-solid fa-angle-right"></i></a>
+        </div>
+        {% endblock %}
+    </section>
+
+
+
+    <!-------------------------------------------About---------------------------------------------->
+
+    <div class="about" id="About">
+        <div class="about_main">
+
+            <div class="image">
+                <img src="../static/image/main_img.png">
+            </div>
+
+            <div class="about_text">
+                <h1><span>Fully</span>Customizable</h1>
+                <h3>Choose whatever you want</h3>
+                <p>
+                    next Intro
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+    {% block content %}{% endblock %}
+
+    
+</body>
+</html>

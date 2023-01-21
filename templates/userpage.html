@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% set title = "My Favorites" %}
+{% block head %}
+    <link rel="stylesheet" href="../static/userpage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block body %}
+        <nav>
+            <div class="logo">
+                <img src="../static/image/logo.png">
+            </div>
+
+            <ul id="home">
+                <li><i class="fa fa-home"></i> Home</li>
+            </ul>
+
+            <div class="icon">
+                <a href="/userpage"><i class="fa-solid fa-user"></i></a>
+            </div>
+
+        </nav>
+    <h1>My Favorites</h1>
+        {% for favorite in favorites %}
+        <div>
+            <a href="{{ url_for('show_recipe', recipe_id=favorite.recipe_id) }}">{{ favorite.recipe.name }}</a>
+            <button class="deletefavorite" id="{{favorite.recipe_id}}">Remove from Favorites</button>
+        </div>
+        {% endfor %}
+<script src="{{ url_for('static', filename='functions.js') }}"></script>
+<script>
+    const home = document.getElementById("home");
+    const jwt = getCookie("JWT");
+    home.addEventListener('click', () => {
+        window.location.href = `/index?jwt=${jwt}`;
+    });
+</script>
+{% endblock %}
+
+

@@ -1,0 +1,98 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <li><a href="#Search"><i class="fa-solid fa-magnifying-glass"></i> Search</a></li>
+    <li id="resultli"></li>
+    <li id="viewli"></li>
+{% endblock %}
+{% block main_btn %}
+    <div class="main_btn" name="logout">
+        <a href="/index">Log out <i class="fa-solid fa-angle-right"></i></a>
+    </div>
+{% endblock %}
+{% block content %}
+<div class="search" id="Search">
+    <h1><span>Search </span>Recipes</h1>
+    <form id="form" method="post">
+        <div><label>Cuisine:</label><br><input type="text" class="input" name="cuisine"><br></div>
+        <div><label>Diet:</label><br><input type="text" class="input" name="diet"><br></div>
+        <div><label>Intolerances:</label><br><input type="text" class="input" name="intolerances"><br></div>
+    </form>
+    <label for="menuselect"><h3>Add a new field:</h3></label>
+    <select id="menuselect" onchange="add">
+      <option>Select...</option>
+      <option value="minProtein">Minimum Protein:</option>
+      <option value="minFat">Minimum Fat:</option>
+      <option value="minCarbs">Minimum Carbs:</option>
+    </select>
+    <button id="submit" onclick="">Submit <i class="fa-solid fa-angle-right"></i></button>
+</div>
+<div class="recipes" id="Recipes"></div>
+<div class="view" id="View"></div>
+<script src="{{ url_for('static', filename='functions.js') }}"></script>
+<script>
+    const jwt = getCookie("JWT");
+    const form = document.getElementById('form');
+    const menu = document.getElementById('menuselect');
+    const submit = document.getElementById('submit');
+    const results = document.getElementById('Recipes');
+    const pfp = document.getElementById('icon')
+    submit.addEventListener("click", () => {
+        const json = formtoJSON(form)
+        const a = postRequest(json, `/menu?jwt=${jwt}`);
+        a.onload = () => {
+            results.innerHTML = a.responseText;
+            const navbar = document.getElementById("resultli")
+            navbar.innerHTML = `<li><a href="#Recipes">Recipes</a></li>`;
+            const viewButtons = document.querySelectorAll(".menu_btn");
+            const likeButtons = document.querySelectorAll(".fa-solid.fa-heart");
+            const stars = document.querySelectorAll('i.fa-solid.fa-star');
+
+            viewButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    const num = button.name;
+                    const json = `{ "id": "${num}" }`;
+                    const b = postRequest(json, `/recipeinfo?jwt=${jwt}`);
+                    b.onload = () => {
+                        const view = document.querySelector("div#View.view")
+                        const navbar = document.getElementById("viewli");
+                        navbar.innerHTML = `<a href="#View">View</a>`;
+                        view.innerHTML = b.responseText
+                    }
+                });
+            });
+
+            likeButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    const num = button.id;
+                    const json = `{"id" : "${num}"}`;
+                    postRequest(json, `/like?jwt=${jwt}`);
+                });
+            });
+
+            stars.forEach(star => {
+                star.addEventListener("click", () => {
+                    const num = star.getAttribute("name");
+                    const rating = star.getAttribute("rating");
+                    const json = `{"id" : "${num}", "rating" : "${rating}"}`;
+                    postRequest(json, `/rate?jwt=${jwt}`);
+                });
+            });
+
+        }
+    });
+    menu.addEventListener("change", add);
+    function add(event) {
+      const value = event.target.value;
+      const div = document.createElement('div');
+      div.innerHTML = `<label>${value}</label><input type="text" class="input" name="${value}"><br>`;
+      form.appendChild(div);
+    };
+
+    pfp.addEventListener("click", () => {
+        window.location.href = `/profile?jwt=${jwt}`;
+    });
+
+
+    </script>
+{% endblock %}
