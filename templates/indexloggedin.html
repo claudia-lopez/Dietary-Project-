@@ -18,13 +18,6 @@
         <div><label>Diet:</label><br><input type="text" class="input" name="diet"><br></div>
         <div><label>Intolerances:</label><br><input type="text" class="input" name="intolerances"><br></div>
     </form>
-    <label for="menuselect"><h3>Add a new field:</h3></label>
-    <select id="menuselect" onchange="add">
-      <option>Select...</option>
-      <option value="minProtein">Minimum Protein:</option>
-      <option value="minFat">Minimum Fat:</option>
-      <option value="minCarbs">Minimum Carbs:</option>
-    </select>
     <button id="submit" onclick="">Submit <i class="fa-solid fa-angle-right"></i></button>
 </div>
 <div class="recipes" id="Recipes"></div>
@@ -38,8 +31,16 @@
     const results = document.getElementById('Recipes');
     const pfp = document.getElementById('icon')
     submit.addEventListener("click", () => {
+        //sofia
+//         const formInputs = {
+//     type: document.querySelector('#type-field').value,
+//     amount: document.querySelector('#amount-field').value,
+//   };
+//   console.log(formInputs['type'])
+        //
         const json = formtoJSON(form)
-        const a = postRequest(json, `/menu?jwt=${jwt}`);
+        // const a = postRequest(json, `/menu?jwt=${jwt}`);
+        const a = postRequest(json, `/menu`);
         a.onload = () => {
             results.innerHTML = a.responseText;
             const navbar = document.getElementById("resultli")

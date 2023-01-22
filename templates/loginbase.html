@@ -18,16 +18,21 @@
             </div>
 
         </nav>
+    {% block passconf %}
   <form method="POST" action="/login">
     <label for="email">Email:</label>
     <input type="email" id="email" name="email"><br>
     <label for="password">Password:</label>
     <input type="password" id="password" name="password"><br>
-      {% block passconf %}{% endblock %}
+    <button>{{button}}<i class="fa-solid fa-angle-right"></i></button>
   </form>
-<p id="fail"></p>
-<button>{{button}}<i class="fa-solid fa-angle-right"></i></button>
-  <script src="{{ url_for('static', filename='functions.js') }}"></script>
+  {% endblock %}
+  {% for message in get_flashed_messages() %}
+  <div class="alert alert-warning">{{ message }}</div>
+{% endfor %}
+<!-- <p id="fail"></p> -->
+<!-- <button>{{button}}<i class="fa-solid fa-angle-right"></i></button> -->
+  <!-- <script src="{{ url_for('static', filename='functions.js') }}"></script>
   <script>
     const form = document.querySelector('form');
     const button = document.querySelector('button');
@@ -50,6 +55,6 @@
           };
         }
     });
-  </script>
+  </script> -->
 {% endblock %}
 </html>

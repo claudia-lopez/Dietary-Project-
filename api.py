@@ -1,12 +1,28 @@
 import requests
+SECRET_KEY = "fg4ois345jfg9898osig346jo2fg"
+url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=6bc813462a6845c9a07de5093bf2bca4"
 
-def getRecipes(args):
-    url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=6bc813462a6845c9a07de5093bf2bca4"
-    for key, value in args.items():
-        url += "&" + key + "=" + value
-    res = requests.get(url)
+# def getRecipes(args):
+#     url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=6bc813462a6845c9a07de5093bf2bca4"
+#     for key, value in args.items():
+#         url += "&" + key + "=" + value
+#     res = requests.get(url)
+#     data = res.json()['results']
+#     print(data)
+#     return data
+
+def getRecipes(diet = None, cuisine = None, intolerances = None):
+    url_params = {
+        "number":16,
+        "diet": diet,
+        "cuisine": cuisine,
+        "intolerances": intolerances,
+    }
+    res = requests.get(url, params=url_params)
     data = res.json()['results']
+    # print(data)
     return data
+getRecipes()
 
 # To unpack:
 # args = {'diet': '', 'cuisine': 'italian', 'intolerances': ''}

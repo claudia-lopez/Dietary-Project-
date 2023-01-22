@@ -14,7 +14,7 @@ app.secret_key = "dnsajkcnjksdncj"
 app.jinja_env.undefined = StrictUndefined
 app.config['JWT_TOKEN_LOCATION'] = ['query_string']
 jwt = JWTManager(app)
-
+SECRET_KEY = "fg4ois345jfg9898osig346jo2fg"
 app.config["JWT_QUERY_STRING_NAME"] = "jwt"
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = datetime.timedelta(hours=10)
 
@@ -23,72 +23,76 @@ def handle_invalid_token(invalid_token):
     return "Your session has expired. Please login again.", 401
 
 
-@app.route("/index", methods=["GET", "POST"])
-def index():
-    jwt = request.args.get("jwt")
-    if jwt:
-        return render_template("indexloggedin.html")
-    else:
-        return render_template("index.html")
+# @app.route("/index", methods=["GET", "POST"])
+# def index():
+#     jwt = request.args.get("jwt")
+#     if jwt:
+#         return render_template("indexloggedin.html")
+#     else:
+#         return render_template("index.html")
 #sofia
-# @app.route("/")
-# def main():
-#     return render_template("index.html")
+@app.route("/")
+def main():
+    return render_template("index.html")
     
-@app.route("/signup", methods=["GET", "POST"])
-def signup():
-    if request.method == "POST":
-        data = request.get_json()
-        return {"endpoint" : url_for("login")}
-    elif request.method == "GET":
-        return render_template("signup.html")
-#sofia
-# @app.route("/signup", methods=["GET"])
+# @app.route("/signup", methods=["GET", "POST"])
 # def signup():
-#     # user=model.User(email)
-#     return render_template("signup1.html") #showing that the Db works, impiment this one signup.html
+#     if request.method == "POST":
+#         data = request.get_json()
+#         return {"endpoint" : url_for("login")}
+#     elif request.method == "GET":
+#         return render_template("signup.html")
 #sofia
-# @app.route("/signup", methods=["POST"])
-# def signup2():
-#     email = request.form.get("email") #! get this info from signup.html
-#     password= request.form.get("password")
-#     in_db = crud.get_user_by_email(email)
-#     print(in_db)
-#     if in_db:
-#         flash("No user found with email")#! NEEDS TO ADD FLASH MESSAGES IN HTML
-#         return redirect("/")
-#     user = model.User(email = email, password = password)
-#     model.db.session.add(user)
-#     model.db.session.commit()
-#     # password1= request.form.get("passwordconf")
-#     print(email,password)
-#     return render_template("indexloggedin.html")
+@app.route("/signup", methods=["GET"])
+def signup():
+    # user=model.User(email)
+    return render_template("signup.html") #showing that the Db works, impiment this one signup.html
+#sofia
+@app.route("/signup", methods=["POST"])
+def signup2():
+    email = request.form.get("email") #! get this info from signup.html
+    password= request.form.get("password")
+    in_db = crud.get_user_by_email(email)
+    print(in_db," IN DB\n\n\n\n\n")
+    if in_db:
+        flash("Email already exist, please try to log in")#! NEEDS TO ADD FLASH MESSAGES IN HTML
+        return redirect("/")
+    user = model.User(email = email, password = password)
+    model.db.session.add(user)
+    model.db.session.commit()
+    # password1= request.form.get("passwordconf")
+    print(email,password, "THIS IS IT")
+    return render_template("indexloggedin.html")
 
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        data = request.get_json()
-        access_token = create_access_token(identity=data.get('email'))
-        vs = crud.verify_user(data.get('email'), data.get('password'))
-        print(vs)
-        if (vs == False):
-            return "fail"
-        else:
-            return {"jwt" : access_token, "endpoint" : url_for("index")}
-    elif request.method == "GET":
-        return render_template("login.html")
-#sofia
-# @app.route("/login")
+# @app.route("/login", methods=["GET", "POST"])
 # def login():
-#     email = request.form.get("email") #how to get this info from frontend
-#     password= request.form.get("password")
-#     user = crud.get_user_by_email(email)
-#     if user:
-#         if user.password == password:
-#             return render_template("login.html")
-#     flash("Incorrect email or Password")
-#     return redirect("/")
+#     if request.method == "POST":
+#         data = request.get_json()
+#         access_token = create_access_token(identity=data.get('email'))
+#         vs = crud.verify_user(data.get('email'), data.get('password'))
+#         print(vs)
+#         if (vs == False):
+#             return "fail"
+#         else:
+#             return {"jwt" : access_token, "endpoint" : url_for("index")}
+#     elif request.method == "GET":
+#         return render_template("login.html")
+#sofia
+@app.route("/login", methods=["GET"])
+def loginGet():
+    return render_template("login.html")
+
+@app.route("/login", methods=["POST"])
+def login():
+    email = request.form.get("email")
+    password= request.form.get("password")
+    user = crud.get_user_by_email(email)
+    if user:
+        if user.password == password:
+            return render_template("indexloggedin.html")
+    flash("Incorrect email or Password")
+    return redirect("/login")
 
 @app.route("/profile", methods=["GET", "POST"])
 @jwt_required()
@@ -101,11 +105,20 @@ def userpage():
         return render_template("userpage.html", favorites=favorites)
 
 
+# @app.route("/menu", methods=["POST"])
+# @jwt_required()
+# def menu():
+#     args = request.get_json()
+#     print(args)
+#     recipes = api.getRecipes(args)
+#     print(recipes)
+#     return (render_template("menu.html", recipes=recipes))
 @app.route("/menu", methods=["POST"])
-@jwt_required()
 def menu():
-    args = request.get_json()
-    recipes = api.getRecipes(args)
+    cuisine = request.form.get("cuisine")
+    print("\n\n\n\n\n ", cuisine)
+    recipes = api.getRecipes()
+    print(recipes)
     return (render_template("menu.html", recipes=recipes))
 
 @app.route("/recipeinfo", methods=["POST"])
