@@ -61,8 +61,9 @@
             viewButtons.forEach(button => {
                 button.addEventListener("click", () => {
                     const num = button.name;
-                    const json = `{ "id": "${num}" }`; // having issues sending the value to server
-                    const b = postRequest(json, `/recipeinfo?jwt=${jwt}`);
+                    console.log(num)
+                    const json = `{ "id": "${num}" }`
+                    const b = postRequest(json, `/recipeinfo`);
                     b.onload = () => {
                         const view = document.querySelector("div#View.view")
                         const navbar = document.getElementById("viewli");
@@ -76,7 +77,7 @@
                 button.addEventListener("click", () => {
                     const num = button.id;
                     const json = `{"id" : "${num}"}`;
-                    postRequest(json, `/like?jwt=${jwt}`);
+                    postRequest(json, `/like`);
                 });
             });
 
@@ -85,7 +86,7 @@
                     const num = star.getAttribute("name");
                     const rating = star.getAttribute("rating");
                     const json = `{"id" : "${num}", "rating" : "${rating}"}`;
-                    postRequest(json, `/rate?jwt=${jwt}`);
+                    postRequest(json, `/rate`);
                 });
             });
 

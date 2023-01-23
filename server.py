@@ -128,7 +128,6 @@ def menu():
     return (render_template("menu.html", recipes=recipes))
 
 @app.route("/recipeinfo", methods=["POST"])
-@jwt_required()
 def recipeinfo():
     json = request.get_json()
     recipe_id = json.get('id')
@@ -137,7 +136,6 @@ def recipeinfo():
 
 
 @app.route("/like", methods=["POST"])
-@jwt_required()
 def like():
     json = request.get_json()
     recipe_id = json.get('id')
@@ -146,7 +144,6 @@ def like():
 
 
 @app.route("/rate", methods=["POST"])
-@jwt_required()
 def rate():
     json = request.get_json()
     recipe_id = json.get('id')
