@@ -13,12 +13,14 @@
 {% block content %}
 <div class="search" id="Search">
     <h1><span>Search </span>Recipes</h1>
-    <form id="form" method="post">
-        <div><label>Cuisine:</label><br><input type="text" class="input" name="cuisine"><br></div>
-        <div><label>Diet:</label><br><input type="text" class="input" name="diet"><br></div>
-        <div><label>Intolerances:</label><br><input type="text" class="input" name="intolerances"><br></div>
+    <form action="/menu" id="form" method="post">
+        <div><label>Cuisine:</label><br><input type="text" class="input" id="cuisine" ><br></div>
+        <div><label>Diet:</label><br><input type="text" class="input" id="diet" ><br></div>
+        <div><label>Intolerances:</label><br><input type="text" class="input" id="intolerances"><br></div>
+        <button id="submit" >Submit <i class="fa-solid fa-angle-right"></i></button>
+
     </form>
-    <button id="submit" onclick="">Submit <i class="fa-solid fa-angle-right"></i></button>
+    <!-- <button id="submit" onclick="">Submit <i class="fa-solid fa-angle-right"></i></button> -->
 </div>
 <div class="recipes" id="Recipes"></div>
 <div class="view" id="View"></div>
@@ -30,19 +32,26 @@
     const submit = document.getElementById('submit');
     const results = document.getElementById('Recipes');
     const pfp = document.getElementById('icon')
-    submit.addEventListener("click", () => {
-        //sofia
-//         const formInputs = {
-//     type: document.querySelector('#type-field').value,
-//     amount: document.querySelector('#amount-field').value,
-//   };
-//   console.log(formInputs['type'])
+    form.addEventListener("submit", (evt) => {
+        evt.preventDefault();
         //
-        const json = formtoJSON(form)
+        
+    // const json = formtoJSON(form)
+    const diet = document.getElementById("diet").value
+    const cuisine = document.getElementById("cuisine").value
+    const intolerances = document.getElementById("intolerances").value
+
+    const json = `{ "diet": "${diet}",
+                    "cuisine":"${cuisine}",
+                    "intolerances":"${intolerances}" }`;
+
         // const a = postRequest(json, `/menu?jwt=${jwt}`);
         const a = postRequest(json, `/menu`);
         a.onload = () => {
+            
             results.innerHTML = a.responseText;
+            // const diet = document.getElementById("cuisine").value // having issues sending the value to server
+            // const json = `{ "diet": "${diet}" }`;
             const navbar = document.getElementById("resultli")
             navbar.innerHTML = `<li><a href="#Recipes">Recipes</a></li>`;
             const viewButtons = document.querySelectorAll(".menu_btn");
@@ -52,7 +61,7 @@
             viewButtons.forEach(button => {
                 button.addEventListener("click", () => {
                     const num = button.name;
-                    const json = `{ "id": "${num}" }`;
+                    const json = `{ "id": "${num}" }`; // having issues sending the value to server
                     const b = postRequest(json, `/recipeinfo?jwt=${jwt}`);
                     b.onload = () => {
                         const view = document.querySelector("div#View.view")

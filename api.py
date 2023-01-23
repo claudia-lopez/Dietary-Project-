@@ -11,7 +11,7 @@ url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=6bc813462a6845c9
 #     print(data)
 #     return data
 
-def getRecipes(diet = None, cuisine = None, intolerances = None):
+def getRecipes(diet = "keto", cuisine = "italian", intolerances = "penuts"):
     url_params = {
         "number":16,
         "diet": diet,
@@ -22,7 +22,8 @@ def getRecipes(diet = None, cuisine = None, intolerances = None):
     data = res.json()['results']
     # print(data)
     return data
-getRecipes()
+
+# getRecipes()
 
 # To unpack:
 # args = {'diet': '', 'cuisine': 'italian', 'intolerances': ''}

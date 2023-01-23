@@ -113,12 +113,18 @@ def userpage():
 #     recipes = api.getRecipes(args)
 #     print(recipes)
 #     return (render_template("menu.html", recipes=recipes))
+
 @app.route("/menu", methods=["POST"])
 def menu():
-    cuisine = request.form.get("cuisine")
-    print("\n\n\n\n\n ", cuisine)
-    recipes = api.getRecipes()
-    print(recipes)
+    json = request.get_json()
+    diet = json.get('diet')
+    cuisine = json.get('cuisine')
+    intolerances = json.get('intolerances')
+
+    # print(recipe_id)
+    
+    recipes = api.getRecipes(diet = diet, cuisine=cuisine, intolerances=intolerances )
+
     return (render_template("menu.html", recipes=recipes))
 
 @app.route("/recipeinfo", methods=["POST"])
