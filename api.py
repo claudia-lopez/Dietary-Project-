@@ -1,4 +1,5 @@
 import requests
+from json import dump
 SECRET_KEY = "fg4ois345jfg9898osig346jo2fg"
 url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=6bc813462a6845c9a07de5093bf2bca4"
 
@@ -54,4 +55,9 @@ def getRecipeInfo(recipe_id):
     data2['title'] = data.get('title')
     data2['image'] = data.get('image')
     data2['id'] = data.get('id')
+
+    with open('api_res.json','w') as f:
+        dump(data, f)
+    
+    
     return(data2)

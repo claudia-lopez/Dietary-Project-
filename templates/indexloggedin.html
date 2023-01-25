@@ -56,7 +56,7 @@
             navbar.innerHTML = `<li><a href="#Recipes">Recipes</a></li>`;
             const viewButtons = document.querySelectorAll(".menu_btn");
             const likeButtons = document.querySelectorAll(".fa-solid.fa-heart");
-            const stars = document.querySelectorAll('i.fa-solid.fa-star');
+            // const stars = document.querySelectorAll('i.fa-solid.fa-star');
 
             viewButtons.forEach(button => {
                 button.addEventListener("click", () => {
@@ -78,17 +78,18 @@
                     const num = button.id;
                     const json = `{"id" : "${num}"}`;
                     postRequest(json, `/like`);
+                    window.location.href = "userpage.html"
                 });
             });
 
-            stars.forEach(star => {
-                star.addEventListener("click", () => {
-                    const num = star.getAttribute("name");
-                    const rating = star.getAttribute("rating");
-                    const json = `{"id" : "${num}", "rating" : "${rating}"}`;
-                    postRequest(json, `/rate`);
-                });
-            });
+            // stars.forEach(star => {
+            //     star.addEventListener("click", () => {
+            //         const num = star.getAttribute("name");
+            //         const rating = star.getAttribute("rating");
+            //         const json = `{"id" : "${num}", "rating" : "${rating}"}`;
+            //         postRequest(json, `/rate`);
+            //     });
+            // });
 
         }
     });
@@ -101,7 +102,8 @@
     };
 
     pfp.addEventListener("click", () => {
-        window.location.href = `/profile?jwt=${jwt}`;
+        window.location.href = `/favorites`;
+        
     });
 
 

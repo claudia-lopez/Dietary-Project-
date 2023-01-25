@@ -35,7 +35,7 @@ class Recipe(db.Model):
 
     __tablename__ = "recipes"
 
-    recipe_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    recipe_id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
     summary = db.Column(db.Text)
     info = db.Column(db.Text)
@@ -84,6 +84,6 @@ class UserLikes(db.Model):
 
 if __name__ == "__main__":
     from server import app
-    # with app.app_context():
-    #     connect_to_db(app)
-    #     db.create_all()
+    with app.app_context():
+        connect_to_db(app)
+        db.create_all()

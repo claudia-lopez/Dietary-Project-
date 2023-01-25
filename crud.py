@@ -69,13 +69,18 @@ def get_rating(user, recipe):
 
 
 ####################liked_recipes############################
+def get_recipe_by_user1(user):
+    fav = db.session.query(Recipe.title, Recipe.recipe_id, Recipe.image, UserLikes.liked).join(UserLikes).filter(UserLikes.recipe_id==Recipe.recipe_id).join(User).filter(user == UserLikes.user_id).all()
+
+    return fav
 
 def user_likes_recipe(email,recipe):
     user= get_user_by_email(email)
     recipe_id=search_recipe_id(recipe)
-    liked=UserLikes(recipe_id=recipe_id.id, user_id=user.id)
+    liked=UserLikes(recipe_id=recipe, user_id=user.user_id)
     db.session.add(liked)
     db.session.commit()
+    return liked 
 
 def get_by_recipe_user(user, recipe):
     liked_id = db.session.query(UserLikes).filter(UserLikes.user_id == user,UserLikes.liked_id == recipe).first()

@@ -85,9 +85,9 @@ def loginGet():
 
 @app.route("/login", methods=["POST"])
 def login():
-    email = request.form.get("email")
+    session['email'] = request.form.get("email")
     password= request.form.get("password")
-    user = crud.get_user_by_email(email)
+    user = crud.get_user_by_email(session['email'])
     if user:
         if user.password == password:
             return render_template("indexloggedin.html")
@@ -139,8 +139,23 @@ def recipeinfo():
 def like():
     json = request.get_json()
     recipe_id = json.get('id')
-    current_user = get_jwt_identity()
-    pass
+    recipe_api=api.getRecipeInfo(recipe_id)
+    # print(recipe_api['title'])
+    recipe=model.Recipe(recipe_id =recipe_id ,title=recipe_api['title'], summary=recipe_api['summary'], info=recipe_api['info'],  instructions=recipe_api['instructions'], ingredients=recipe_api['ingredients'], image=recipe_api['image'])
+    print(recipe_api)
+    model.db.session.add(recipe)
+    model.db.session.commit()
+    user_likes=crud.user_likes_recipe(email=session['email'],recipe=int(recipe_id))
+    model.db.session.add(user_likes)
+    model.db.session.commit()
+    # current_user = get_jwt_identity()
+    return render_template("userpage.html")
+
+@app.route("/favorites")
+def favorites():
+    recipes =crud.get_recipe_by_user1(1)
+
+    return render_template("userpage.html", recipes=recipes)
 
 
 @app.route("/rate", methods=["POST"])

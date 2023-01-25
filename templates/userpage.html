@@ -6,35 +6,14 @@
 {% endblock %}
 
 {% block body %}
-        <nav>
-            <div class="logo">
-                <img src="../static/image/logo.png">
-            </div>
+{%for recipe in recipes%}
+<h1>{{recipe.title}}</h1>
 
-            <ul id="home">
-                <li><i class="fa fa-home"></i> Home</li>
-            </ul>
+<img src="{{recipe.image}}" alt="">
 
-            <div class="icon">
-                <a href="/userpage"><i class="fa-solid fa-user"></i></a>
-            </div>
+    
 
-        </nav>
-    <h1>My Favorites</h1>
-        {% for favorite in favorites %}
-        <div>
-            <a href="{{ url_for('show_recipe', recipe_id=favorite.recipe_id) }}">{{ favorite.recipe.name }}</a>
-            <button class="deletefavorite" id="{{favorite.recipe_id}}">Remove from Favorites</button>
-        </div>
-        {% endfor %}
-<script src="{{ url_for('static', filename='functions.js') }}"></script>
-<script>
-    const home = document.getElementById("home");
-    const jwt = getCookie("JWT");
-    home.addEventListener('click', () => {
-        window.location.href = `/index?jwt=${jwt}`;
-    });
-</script>
+{%endfor%}
 {% endblock %}
 
 
