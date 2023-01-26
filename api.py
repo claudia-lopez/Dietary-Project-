@@ -40,4 +40,4 @@ def getRecipeInfo(recipe_id):
 
     # with open('api_res.json','w') as f:
     #     dump(data, f)
-    # return(data2)
+    return(data2)

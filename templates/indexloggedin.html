@@ -59,6 +59,7 @@
             viewButtons.forEach(button => {
                 button.addEventListener("click", () => {
                     const num = button.name;
+                    // console.log(num)
                     console.log(num)
                     const json = `{ "id": "${num}" }`
                     const b = postRequest(json, `/recipeinfo`);

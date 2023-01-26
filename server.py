@@ -84,6 +84,7 @@ def menu():
 def recipeinfo():
     json = request.get_json()
     recipe_id = json.get('id')
+    print(recipe_id,"\n\n\n\n")
     recipe = api.getRecipeInfo(recipe_id)
     return render_template("recipeinfo.html", recipe=recipe)
 
