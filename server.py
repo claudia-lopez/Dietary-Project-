@@ -12,11 +12,11 @@ app = Flask(__name__)
 app.secret_key = "dnsajkcnjksdncj"
 
 app.jinja_env.undefined = StrictUndefined
-app.config['JWT_TOKEN_LOCATION'] = ['query_string']
+# app.config['JWT_TOKEN_LOCATION'] = ['query_string']
 jwt = JWTManager(app)
 SECRET_KEY = "fg4ois345jfg9898osig346jo2fg"
-app.config["JWT_QUERY_STRING_NAME"] = "jwt"
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = datetime.timedelta(hours=10)
+# app.config["JWT_QUERY_STRING_NAME"] = "jwt"
+# app.config["JWT_ACCESS_TOKEN_EXPIRES"] = datetime.timedelta(hours=10)
 
 @jwt.invalid_token_loader
 def handle_invalid_token(invalid_token):
@@ -149,7 +149,7 @@ def like():
     model.db.session.add(user_likes)
     model.db.session.commit()
     # current_user = get_jwt_identity()
-    return render_template("userpage.html")
+    return redirect("/favorites")
 
 @app.route("/favorites")
 def favorites():
@@ -158,13 +158,13 @@ def favorites():
     return render_template("userpage.html", recipes=recipes)
 
 
-@app.route("/rate", methods=["POST"])
-def rate():
-    json = request.get_json()
-    recipe_id = json.get('id')
-    rating = json.get('rating')
-    current_user = get_jwt_identity()
-    pass
+# @app.route("/rate", methods=["POST"])
+# def rate():
+#     json = request.get_json()
+#     recipe_id = json.get('id')
+#     rating = json.get('rating')
+#     current_user = get_jwt_identity()
+#     pass
 
 
 if __name__ == "__main__":

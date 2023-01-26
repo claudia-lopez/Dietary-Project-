@@ -3,6 +3,48 @@
   margin: 0;
   padding: 0;
 }
+#favs-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    right: 0;
+    left: 0;
+    margin-bottom: 50px;
+    background: white;
+    z-index: 1000;
+    flex-wrap: wrap;
+
+}
+.title-fav{
+    margin-left: 15px;
+    color: #0b0b0a;
+    font-family: mv boli;
+    line-height: 22px;
+    font-size: 50px;
+}
+.nav-link{
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+    font-size: 17px;
+    transition: 0.1s;
+}
+.favs{
+    width: 340px;
+    height: 480px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.favs-img{
+    width: 300px;
+    height: 245px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 20px;
+    /* padding-right: 20px; */
+}
 nav{
     display: flex;
     justify-content: space-around;
@@ -13,6 +55,25 @@ nav{
     background: white;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     z-index: 1000;
+}
+.fave-title{
+    width: 90%;
+    text-align: center;
+    margin: 10px auto 10px auto;
+    font-size: 25px;
+    color: #fac031;
+}
+
+.view-button{
+    color: white;
+    background: #000;
+    padding: 8px 10px;
+    transition: 0.3s;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    left: 105%;
+    transform: translateY(50%);
 }
 
 nav .logo img{

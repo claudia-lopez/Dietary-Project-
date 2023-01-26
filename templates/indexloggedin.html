@@ -4,6 +4,7 @@
     <li><a href="#Search"><i class="fa-solid fa-magnifying-glass"></i> Search</a></li>
     <li id="resultli"></li>
     <li id="viewli"></li>
+    <li ><a href="#Logout">Log Out</a></li>
 {% endblock %}
 {% block main_btn %}
     <div class="main_btn" name="logout">
@@ -78,7 +79,7 @@
                     const num = button.id;
                     const json = `{"id" : "${num}"}`;
                     postRequest(json, `/like`);
-                    window.location.href = "userpage.html"
+                    window.location.href = `/favorites`;
                 });
             });
 

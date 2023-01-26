@@ -6,14 +6,38 @@
 {% endblock %}
 
 {% block body %}
-{%for recipe in recipes%}
-<h1>{{recipe.title}}</h1>
+<nav>
+    <div class="logo">
+        <img src="../static/image/logo.png">
+    </div>
 
-<img src="{{recipe.image}}" alt="">
-
+    <ul>
+        <li ><a class="nav-link" href="/">Home</a></li>
+        <li ><a class="nav-link" href="#About">About</a></li>
+        <li ><a class="nav-link" href="#Logout">Log Out</a></li>
     
+        {% block navbar %}{% endblock %}
+    </ul>
+
+    <div class="icon" id="icon">
+        <a href="/favorites"><i class="fa-solid fa-user"></i></a>
+    </div>
+
+</nav>
+
+<h1 class="title-fav">Favorite Recipes</h1>
+<div id="favs-container">
+{%for recipe in recipes%}
+<div class="favs">
+<img class="favs-img"src="{{recipe.image}}" alt="">
+<h1 class="fave-title">{{recipe.title}}</h1>
+<button class="view-button">
+    View Recipe
+</button>
+</div>
 
 {%endfor%}
+</div>
 {% endblock %}
 
 
