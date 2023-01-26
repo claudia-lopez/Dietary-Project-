@@ -30,31 +30,5 @@
   {% for message in get_flashed_messages() %}
   <div class="alert alert-warning">{{ message }}</div>
 {% endfor %}
-<!-- <p id="fail"></p> -->
-<!-- <button>{{button}}<i class="fa-solid fa-angle-right"></i></button> -->
-  <!-- <script src="{{ url_for('static', filename='functions.js') }}"></script>
-  <script>
-    const form = document.querySelector('form');
-    const button = document.querySelector('button');
-    button.addEventListener("click", () => {
-        if (document.querySelector('#passwordconf') != null && document.querySelector("#password").value !== document.querySelector("#passwordconf").value){
-            document.querySelector("#fail").innerHTML = "Passwords do not match";
-        }
-        else {
-          const json = formtoJSON(form);
-          const a = postRequest(json, {{endpoint | safe}});
-          a.onload = () => {
-            if (a.responseText === "fail"){
-                document.querySelector("#fail").innerHTML = "Incorrect email or password";
-                }
-            let b = JSON.parse(a.response);
-            if (Object.keys(b).length > 1) {
-              setCookie("JWT", b.jwt, 10);
-            }
-            window.location.assign(`${b.endpoint}?jwt=${b.jwt}`);
-          };
-        }
-    });
-  </script> -->
 {% endblock %}
 </html>

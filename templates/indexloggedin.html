@@ -21,7 +21,7 @@
         <button id="submit" >Submit <i class="fa-solid fa-angle-right"></i></button>
 
     </form>
-    <!-- <button id="submit" onclick="">Submit <i class="fa-solid fa-angle-right"></i></button> -->
+
 </div>
 <div class="recipes" id="Recipes"></div>
 <div class="view" id="View"></div>
@@ -35,9 +35,7 @@
     const pfp = document.getElementById('icon')
     form.addEventListener("submit", (evt) => {
         evt.preventDefault();
-        //
-        
-    // const json = formtoJSON(form)
+
     const diet = document.getElementById("diet").value
     const cuisine = document.getElementById("cuisine").value
     const intolerances = document.getElementById("intolerances").value
@@ -46,18 +44,17 @@
                     "cuisine":"${cuisine}",
                     "intolerances":"${intolerances}" }`;
 
-        // const a = postRequest(json, `/menu?jwt=${jwt}`);
+
         const a = postRequest(json, `/menu`);
         a.onload = () => {
-            
+
             results.innerHTML = a.responseText;
-            // const diet = document.getElementById("cuisine").value // having issues sending the value to server
-            // const json = `{ "diet": "${diet}" }`;
+
             const navbar = document.getElementById("resultli")
             navbar.innerHTML = `<li><a href="#Recipes">Recipes</a></li>`;
             const viewButtons = document.querySelectorAll(".menu_btn");
             const likeButtons = document.querySelectorAll(".fa-solid.fa-heart");
-            // const stars = document.querySelectorAll('i.fa-solid.fa-star');
+
 
             viewButtons.forEach(button => {
                 button.addEventListener("click", () => {
@@ -83,28 +80,19 @@
                 });
             });
 
-            // stars.forEach(star => {
-            //     star.addEventListener("click", () => {
-            //         const num = star.getAttribute("name");
-            //         const rating = star.getAttribute("rating");
-            //         const json = `{"id" : "${num}", "rating" : "${rating}"}`;
-            //         postRequest(json, `/rate`);
-            //     });
-            // });
 
         }
     });
     menu.addEventListener("change", add);
     function add(event) {
-      const value = event.target.value;
-      const div = document.createElement('div');
-      div.innerHTML = `<label>${value}</label><input type="text" class="input" name="${value}"><br>`;
-      form.appendChild(div);
+    const value = event.target.value;
+    const div = document.createElement('div');
+    div.innerHTML = `<label>${value}</label><input type="text" class="input" name="${value}"><br>`;
+    form.appendChild(div);
     };
 
     pfp.addEventListener("click", () => {
         window.location.href = `/favorites`;
-        
     });
 
 
